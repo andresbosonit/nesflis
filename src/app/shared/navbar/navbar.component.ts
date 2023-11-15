@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'firebase/auth';
 
@@ -11,23 +11,41 @@ import { User } from 'firebase/auth';
 export class NavbarComponent implements OnInit {
   navBackground: any;
   loggedIn = false;
-  @HostListener('document:scroll') scrollover () {
-    console.log(document.body.scrollTop, 'scrolllength#');
 
-    if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-      this.navBackground = {
-        'background-color': '#0e0e0ede'
+  constructor (private userService: UserService, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.handleScroll();
       }
-    } else {
-      this.navBackground = {}
-    }
+    });
   }
 
-
-  constructor (private userService: UserService, private router: Router) { }
-
-  ngOnInit (): void {
+  ngOnInit() {
    
+  }
+
+  @HostListener('document:scroll')
+  handleScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollPosition > 0) {
+      this.navBackground = {
+        'background-color': '#0e0e0ede'
+      };
+
+      // Cambiar el estilo solo si estás en la página de inicio
+      if (this.router.url != '/') {
+        this.navBackground = {
+          'background-color': '#0e0e0ede',
+          'position': 'fixed',
+          'top': 0,
+          'right': 0,
+          'left': 0
+        };
+      }
+    } else {
+      this.navBackground = {};
+    }
   }
 
   onClick () {
