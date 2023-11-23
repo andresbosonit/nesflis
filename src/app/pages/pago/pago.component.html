@@ -1,9 +1,4 @@
-
-  
-  <stripe-card #stripeCard
-    (paymentMethodChange) = "setPaymentMethod($event)"
-    (tokenChange) = "setStripeToken($event)"
-    (sourceChange) = "setStripeSource($event)"
-  ></stripe-card>
-  
-  
+<ngx-stripe-card
+                [options]="cardOptions"
+                [elementsOptions]="elementsOptions">
+              </ngx-stripe-card>

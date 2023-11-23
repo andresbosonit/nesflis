@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 @NgModule({
+  schemas: [NO_ERRORS_SCHEMA],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -55,6 +56,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
   ],
   imports: [
     NgxStripeModule.forRoot('pk_test_51OFIQYGAd0Yb1G0R9hY6hD5yQF7KJBRw9oU2UBs9R0BFbfbhx3az5lcn1CHTyYhDnpGUYerJLlb4qCAoDXMcp1jW005E80GeRF'),
+    NgxStripeModule.forChild('pk_test_51OFIQYGAd0Yb1G0R9hY6hD5yQF7KJBRw9oU2UBs9R0BFbfbhx3az5lcn1CHTyYhDnpGUYerJLlb4qCAoDXMcp1jW005E80GeRF'),
     KeycloakAngularModule,
     BrowserModule,
     AppRoutingModule,
@@ -66,7 +68,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
           sendAccessToken: true
       }
   }),
-  StripeModule.forRoot("pk_test_51OFIQYGAd0Yb1G0R9hY6hD5yQF7KJBRw9oU2UBs9R0BFbfbhx3az5lcn1CHTyYhDnpGUYerJLlb4qCAoDXMcp1jW005E80GeRF")
   ],
   providers: [
     MoviesService, 
