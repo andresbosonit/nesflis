@@ -1,0 +1,106 @@
+
+    <section class="container-table margin-inline">
+      <div class="plan-head">
+        <h2>Paso 1 de 2</h2>
+        <h1>Elija el plan adecuado para usted</h1>
+      </div>
+      <div class="plan-list">
+        <div class="choose-plan">
+          <i class="fas fa-check text-check"></i>
+          <p>Mira todo lo que quieras. Libre de anuncios.</p>
+        </div>
+        <div class="choose-plan">
+          <i class="fas fa-check text-check"></i>
+          <p>Recomendaciones solo para ti.</p>
+        </div>
+        <div class="choose-plan">
+          <i class="fas fa-check text-check"></i>
+          <p>Cambia o cancela tu plan en cualquier momento.</p>
+        </div>
+      </div>
+
+      <!-- Table -->
+
+      <div class="table-res">
+        <!-- Text-Absolute -->
+        <div class="text-absolute">
+          <p>Precio mensual</p>
+          <p>Calidad de video</p>
+          <p>Resolución</p>
+          <p>Dispositivos para descargas</p>
+          <p>Dispositivos que puedes usar para mirar</p>
+        </div>
+
+        <div class="tab-hidden hide">
+          <input class="tab-input-none" type="radio" name="radiotab" id="tab-1" />
+
+          <div class="label">
+            <label class="tab-label text-table-head" for="tab-1">None</label>
+          </div>
+
+          <div class="content-list hide">
+            <p class="text-content-1">Precio mensual</p>
+            <p class="text-content-1">Calidad de video</p>
+            <p class="text-content-1">Resolución</p>
+            <p class="text-content-1">Dispositivos para descargas</p>
+            <p class="text-content-1">Dispositivos que puedes usar para mirar</p>
+          </div>
+        </div>
+
+        <div *ngFor="let plan of planes; index as i">
+            <input class="tab-input" type="radio" name="radiotab" [id]="'tab-' + i+1" (change)="onPlanSelected(i)" />
+
+          <div class="label">
+            <label class="tab-label text-table-head" [for]="'tab-' + i+1">{{plan.name}}</label>
+          </div>
+
+          <div class="content-list">
+            <p class="text-content">{{plan.price}} &euro;</p>
+            <p class="text-content">{{plan.quality}}</p>
+            <p class="text-content">{{plan.resolution}}</p>
+            <p class="text-content">{{plan.deviceNum}}</p>
+            <div class="device-list">
+              <i class="fas fa-mobile-alt text-icon"></i>
+              <span class="text-icon-1">Phone</span>
+            </div>
+            <div class="device-list">
+              <i class="fas fa-tablet-alt text-icon"></i>
+              <span class="text-icon-1">Tablet</span>
+            </div>
+            <div class="device-list">
+              <i class="fas fa-computer text-icon"></i>
+              <span class="text-icon-1">Computer</span>
+            </div>
+            <div class="device-list">
+              <i class="fas fa-tv-alt text-icon"></i>
+              <span class="text-icon-1">TV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+
+      <div class="line">
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+      </div>
+
+      <!-- Terms -->
+
+      <div class="terms">
+        <p class="text-terms">
+            La disponibilidad de HD (720p), Full HD (1080p), Ultra HD (4K) y HDR está sujeta a su servicio de Internet y las capacidades de su dispositivo. No todo el contenido está disponible en todas las resoluciones. Consulte nuestras <span class="text-terms-1">Condiciones de uso</span> para
+            más detalles.
+        </p>
+        <p class="text-terms margin-top">Sólo las personas que viven con usted pueden utilizar su cuenta. Míralo en 4 dispositivos diferentes al mismo tiempo con Premium, 2 con Estándar y 1 con Básico y Móvil.</p>
+      </div>
+
+      <!-- Submit -->
+
+      <form id="siguiente">
+        <button id="btnSiguiente" class="btn-plan margin-inline margin-top-3" type="submit" value="submit"  [disabled]="!btnSiguienteHabilitado" [ngStyle]="getButtonStyle()" >Siguiente</button>
+      </form>
+    </section>

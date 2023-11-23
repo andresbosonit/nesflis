@@ -20,8 +20,8 @@ export class MoviesService {
   constructor (private http: HttpClient) { }
 
 
-  sliderMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/movie/now_playing?api_key=${this.apikey}`);
+  sliderMovies (): Promise<Movies | any> {
+    return this.http.get<Movies>(`${this.baseURL}/movie/now_playing?api_key=${this.apikey}`).toPromise();
   }
 
   getDiscoverMovies (): Observable<Movies> {
@@ -68,8 +68,8 @@ export class MoviesService {
     return this.http.get<Movies>(`${this.baseURL}/search/movie?api_key=${this.apikey}&query=${id.movieName}`);
   }
 
-  getMovieDetails (id: any): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?api_key=${this.apikey}`)
+  async getMovieDetails (id: any): Promise<Movies | any> {
+    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?api_key=${this.apikey}`).toPromise();
   }
 
   getMovieVideo (id: any): Observable<Movies> {

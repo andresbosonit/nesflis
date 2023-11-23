@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,16 @@ export class UserService{
   constructor (private http: HttpClient) {
   }
 
-  register ({ email, password }: any) {
-    
+  create (user: User): Observable<User> {
+    return this.http.post<User>('http://localhost:8080/user/create', user);
+  }
+
+  searchById (id: string): Observable<any> {
+    return this.http.get('http://localhost:8080/user/search/' + id);
+  }
+
+  async searchByIdProm (id: string): Promise<any> {
+    return this.http.get('http://localhost:8080/user/search/' + id);
   }
 
   login () {

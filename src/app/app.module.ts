@@ -17,6 +17,11 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { UserService } from './services/user.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { IndexComponent } from './pages/index/index.component';
+import { ProfilesComponent } from './pages/profiles/profiles.component';
+import { PlanComponent } from './pages/plan/plan.component';
+import { PagoComponent } from './pages/pago/pago.component';
+import { StripeModule } from 'stripe-angular';
+import { NgxStripeModule } from 'ngx-stripe';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -27,11 +32,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         clientId: 'spring-client-api-rest'
       },
       initOptions: {
-        pkceMethod: 'S256', 
-        // must match to the configured value in keycloak
-        redirectUri: 'http://localhost:4200/home',   
-        // this will solved the error 
-        checkLoginIframe: false,
+        onLoad: 'check-sso',  // allowed values 'login-required', 'check-sso';
         flow: "implicit"
     }});
 }
@@ -47,9 +48,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LoginComponent,
     RegisterComponent,
     IndexComponent,
+    ProfilesComponent,
+    PlanComponent,
+    PagoComponent,
     
   ],
   imports: [
+    NgxStripeModule.forRoot('pk_test_51OFIQYGAd0Yb1G0R9hY6hD5yQF7KJBRw9oU2UBs9R0BFbfbhx3az5lcn1CHTyYhDnpGUYerJLlb4qCAoDXMcp1jW005E80GeRF'),
     KeycloakAngularModule,
     BrowserModule,
     AppRoutingModule,
@@ -60,7 +65,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
           allowedUrls: ['http://localhost:8080'],
           sendAccessToken: true
       }
-  })
+  }),
+  StripeModule.forRoot("pk_test_51OFIQYGAd0Yb1G0R9hY6hD5yQF7KJBRw9oU2UBs9R0BFbfbhx3az5lcn1CHTyYhDnpGUYerJLlb4qCAoDXMcp1jW005E80GeRF")
   ],
   providers: [
     MoviesService, 

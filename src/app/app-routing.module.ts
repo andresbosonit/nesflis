@@ -5,17 +5,25 @@ import { SearchComponent } from './pages/search/search.component';
 import { MovieDetailsComponent } from './pages/movie-details/movie-details.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginService } from './services/login.service';
-import { RedirectToKeycloakGuard } from './redirect-to-keycloak.guard';
+
 import { IndexComponent } from './pages/index/index.component';
+import { KeycloakAuthGuard } from 'keycloak-angular';
+import { RedirectToKeycloakGuard } from './guard/redirect-to-keycloak.guard';
+import { ProfilesComponent } from './pages/profiles/profiles.component';
+import { PlanComponent } from './pages/plan/plan.component';
+import { PagoComponent } from './pages/pago/pago.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: HomeComponent, canActivate: [RedirectToKeycloakGuard]},
-  { path: '', component: IndexComponent},
+  { path: '', component: IndexComponent, canActivate: [RedirectToKeycloakGuard]},
+  { path: 'profiles', component: ProfilesComponent, canActivate: [RedirectToKeycloakGuard]},
+  { path: 'plan', component: PlanComponent},
+  { path: 'pago', component: PagoComponent},
   {
     path: 'home',
     component: HomeComponent,
-    //...canActivate(() => redirectUnauthorizedTo(['/login']))
+    canActivate: [RedirectToKeycloakGuard]
   },
   {
     path: 'search',

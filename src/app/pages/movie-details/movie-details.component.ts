@@ -26,9 +26,9 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   getMovie (id: any) {
-    this.moviesService.getMovieDetails(id).subscribe(async (result) => {
+    this.moviesService.getMovieDetails(id).then((result) => {
       console.log(result, 'getmoviedetails#');
-      this.getMovieDetailResult = await result;
+      this.getMovieDetailResult = result;
 
       // updatetags
       this.title.setTitle(`${this.getMovieDetailResult.original_title} | ${this.getMovieDetailResult.tagline}`);
