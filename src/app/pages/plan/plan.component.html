@@ -48,7 +48,7 @@
         </div>
 
         <div *ngFor="let plan of planes; index as i">
-            <input class="tab-input" type="radio" name="radiotab" [id]="'tab-' + i+1" (change)="onPlanSelected(i)" />
+            <input class="tab-input" type="radio" name="radiotab" [id]="'tab-' + i+1" (change)="onPlanSelected(i, plan.idSubType)" />
 
           <div class="label">
             <label class="tab-label text-table-head" [for]="'tab-' + i+1">{{plan.name}}</label>
@@ -100,7 +100,5 @@
 
       <!-- Submit -->
 
-      <form id="siguiente">
-        <button id="btnSiguiente" class="btn-plan margin-inline margin-top-3" type="submit" value="submit"  [disabled]="!btnSiguienteHabilitado" [ngStyle]="getButtonStyle()" >Siguiente</button>
-      </form>
-    </section>
+        <button id="btnSiguiente" class="btn-plan margin-inline margin-top-3" type="submit" value="submit"  [disabled]="!btnSiguienteHabilitado" [ngStyle]="getButtonStyle()" (click)="goToPay()" >Siguiente</button>
+  </section>

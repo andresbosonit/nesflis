@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plan } from 'src/app/interfaces/plan';
 import { PlanService } from 'src/app/services/plan.service';
 import { Router } from '@angular/router';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-plan',
@@ -11,8 +12,10 @@ import { Router } from '@angular/router';
 export class PlanComponent implements OnInit {
   planes: Plan[];
   btnSiguienteHabilitado: boolean = false;
+  plan: number;
+  planId: string;
 
-  constructor(private readonly planService: PlanService, private router: Router) { }
+  constructor(private readonly planService: PlanService, private router: Router, private paymentService: PaymentService) { }
 
   ngOnInit(): void {
     this.changeBodyStyles();
@@ -28,20 +31,25 @@ export class PlanComponent implements OnInit {
     document.body.style.backgroundColor = '#FFFFFF';
   }
 
-  onPlanSelected(plan: number): void {
+  onPlanSelected(plan: number, planId: string): void {
     this.btnSiguienteHabilitado = true
-    this.goToPay(plan);
+    this.plan = plan;
+    this.planId = planId;
   }
 
-  goToPay(plan: number): void {
-    const form = document.querySelector("#siguiente");
-    if(plan === 0){
-      form.setAttribute("action", "https://buy.stripe.com/test_aEUdUF18W4XW2iI7ss")
-    } else if(plan === 1){
-      form.setAttribute("action", "https://buy.stripe.com/test_aEUaIt8Bobmkg9y145")
-    }else {
-      form.setAttribute("action", "https://buy.stripe.com/test_fZe4k53h4620cXmdQS")
-    }
+  goToPay(): void {
+    this.paymentService.createPaymentLink(this.planId)
+      .subscribe(res => {
+        console.log(res);
+        
+        if(this.plan === 0){
+          window.location.href = res.res;
+        } else if(this.plan === 1){
+          window.location.href = res.res;
+        }else {
+          window.location.href = res.res;
+        }
+      })
     
     
   }

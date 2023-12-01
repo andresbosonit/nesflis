@@ -16,14 +16,14 @@ import { PagoComponent } from './pages/pago/pago.component';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: HomeComponent, canActivate: [RedirectToKeycloakGuard]},
-  { path: '', component: IndexComponent, canActivate: [RedirectToKeycloakGuard]},
-  { path: 'profiles', component: ProfilesComponent, canActivate: [RedirectToKeycloakGuard]},
+  { path: '', component: IndexComponent},
+  { path: 'profiles', component: ProfilesComponent},
   { path: 'plan', component: PlanComponent},
   { path: 'pago', component: PagoComponent},
   {
     path: 'home',
-    component: HomeComponent,
-    canActivate: [RedirectToKeycloakGuard]
+    component: HomeComponent
+   
   },
   {
     path: 'search',
