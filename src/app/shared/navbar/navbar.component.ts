@@ -56,6 +56,10 @@ export class NavbarComponent implements OnInit {
    return this.keycloakService.logout("http://localhost:4200/");
   }
 
+  async login(){
+    return this.keycloakService.login();
+  }
+
   async getUserLoggedIn(){
     this.loggedIn = await this.keycloakService.isLoggedIn()
   }

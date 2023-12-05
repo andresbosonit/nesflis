@@ -43,7 +43,10 @@ export class AppComponent implements OnInit {
   public async ngOnInit() {
     
       this.keycloak.isLoggedIn().then(res => {
-        if(res && !this.existe){
+        if(res){
+          this.userService.searchById(this.user.idUser).subscribe((res: any) => {
+            console.log(res);
+          });
           this.keycloak.loadUserProfile().then((res: KeycloakProfile) => {
             this.user.idUser = res.id || '';
             this.user.email = res.email || '';
@@ -51,10 +54,8 @@ export class AppComponent implements OnInit {
             this.user.firstName = res.firstName || '';
             this.user.lastName = res.lastName || '';
             this.user.username = res.username || '';
-            this.userService.create(this.user).subscribe();
             this.userService.searchById(this.user.idUser).subscribe((res: any) => {
-              console.log(res);
-            
+              if(!res.idUser) this.userService.create(this.user).subscribe();      
             });
           })
         }

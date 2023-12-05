@@ -8,23 +8,42 @@ import { LoginService } from './services/login.service';
 
 import { IndexComponent } from './pages/index/index.component';
 import { KeycloakAuthGuard } from 'keycloak-angular';
-import { RedirectToKeycloakGuard } from './guard/redirect-to-keycloak.guard';
 import { ProfilesComponent } from './pages/profiles/profiles.component';
 import { PlanComponent } from './pages/plan/plan.component';
 import { PagoComponent } from './pages/pago/pago.component';
+import { LoginComponent } from './components/login/login.component';
+import { authGuard, compositeGuard } from './guard/composite.guard';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: HomeComponent, canActivate: [RedirectToKeycloakGuard]},
-  { path: '', component: IndexComponent},
-  { path: 'profiles', component: ProfilesComponent},
-  { path: 'plan', component: PlanComponent},
-  { path: 'pago', component: PagoComponent},
+  { 
+    path: '', 
+    component: IndexComponent,
+  },
+
+  { 
+    path: 'profiles', 
+    component: ProfilesComponent ,
+    canActivate: [authGuard]
+  },
+
+  { 
+    path: 'plan', 
+    component: PlanComponent,
+    canActivate: [authGuard]
+  },
+
+  { 
+    path: 'pago', 
+    component: PagoComponent,
+    canActivate: [authGuard]
+  },
+
   {
     path: 'home',
-    component: HomeComponent
-   
+    component: HomeComponent,
+    canActivate: [authGuard]
   },
+
   {
     path: 'search',
     component: SearchComponent,

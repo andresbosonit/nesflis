@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as fs from 'browser-fs-access';
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilesComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+   }
+
+  imageList: string[] = [];
 
   ngOnInit(): void {
     this.changeBodyStyles();
